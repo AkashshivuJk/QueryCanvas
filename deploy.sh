@@ -55,7 +55,7 @@ cd ..
 
 # --- 5. Systemd service ---
 echo "[5/7] Creating systemd service..."
-sudo tee /etc/systemd/system/dvws.service > /dev/null << 'UNIT'
+sudo tee /etc/systemd/system/querycanvas.service > /dev/null << 'UNIT'
 [Unit]
 Description=QueryCanvas & SQL Workspace
 After=network.target
