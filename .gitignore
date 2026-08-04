@@ -1,0 +1,31 @@
+# Dependencies
+frontend/node_modules/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Build output
+frontend/dist/
+
+# Environment
+.env
+*.local
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+
+# Python
+*.egg-info/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Database files (optional - uncomment to ignore)
+# *.db
+# *.db3
+# *.sqlite.livup/
