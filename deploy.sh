@@ -1,12 +1,12 @@
 #!/bin/bash
 # ============================================================
-# Database Visualizer & SQL Workspace — Deployment Script
+# QueryCanvas & SQL Workspace — Deployment Script
 # Run this on a fresh Oracle Cloud Ubuntu VM (ARM or AMD64)
 # Usage: bash deploy.sh
 # ============================================================
 set -e
 
-echo "=== Database Visualizer Deployment ==="
+echo "=== QueryCanvas Deployment ==="
 echo ""
 
 # --- 1. System packages ---
@@ -16,14 +16,14 @@ sudo apt-get install -y python3 python3-pip python3-venv git curl ufw
 
 # --- 2. Python virtual environment ---
 echo "[2/7] Setting up Python environment..."
-python3 -m venv /opt/dvws/venv
-source /opt/dvws/venv/bin/activate
+python3 -m venv /opt/querycanvas/venv
+source /opt/querycanvas/venv/bin/activate
 pip install --upgrade pip
 pip install fastapi 'uvicorn[standard]' pydantic
 
 # --- 3. Project setup ---
 echo "[3/7] Setting up project..."
-APP_DIR="/opt/dvws/app"
+APP_DIR="/opt/querycanvas/app"
 sudo mkdir -p "$APP_DIR"
 
 # If you cloned/uploaded the project to a directory, adjust this path.
@@ -57,14 +57,14 @@ cd ..
 echo "[5/7] Creating systemd service..."
 sudo tee /etc/systemd/system/dvws.service > /dev/null << 'UNIT'
 [Unit]
-Description=Database Visualizer & SQL Workspace
+Description=QueryCanvas & SQL Workspace
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/dvws/app
-ExecStart=/opt/dvws/venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8000
+WorkingDirectory=/opt/querycanvas/app
+ExecStart=/opt/querycanvas/venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=5
 Environment=PORT=8000
@@ -74,8 +74,8 @@ WantedBy=multi-user.target
 UNIT
 
 sudo systemctl daemon-reload
-sudo systemctl enable dvws
-sudo systemctl start dvws
+sudo systemctl enable querycanvas
+sudo systemctl start querycanvas
 
 # --- 6. Firewall ---
 echo "[6/7] Configuring firewall..."
@@ -86,7 +86,7 @@ sudo ufw --force enable
 # --- 7. Verify ---
 echo "[7/7] Verifying..."
 sleep 3
-if curl -s http://localhost:8000/ | grep -q "Database Visualizer\|root\|html"; then
+if curl -s http://localhost:8000/ | grep -q "QueryCanvas\|root\|html"; then
   echo ""
   echo "✅ Deployment successful!"
   echo "   The app is running on port 8000."
@@ -98,10 +98,10 @@ if curl -s http://localhost:8000/ | grep -q "Database Visualizer\|root\|html"; t
   echo "   4. Access at: http://<your-vm-public-ip>:8000"
   echo ""
   echo "   Useful commands:"
-  echo "     sudo systemctl status dvws    # check status"
-  echo "     sudo systemctl restart dvws    # restart after updates"
-  echo "     sudo journalctl -u dvws -f     # view live logs"
+  echo "     sudo systemctl status querycanvas    # check status"
+  echo "     sudo systemctl restart querycanvas    # restart after updates"
+  echo "     sudo journalctl -u querycanvas -f     # view live logs"
 else
   echo "❌ Deployment may have failed. Check logs:"
-  echo "   sudo journalctl -u dvws -f"
+  echo "   sudo journalctl -u querycanvas -f"
 fi

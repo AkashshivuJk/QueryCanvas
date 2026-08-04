@@ -1,12 +1,12 @@
 [Unit]
-Description=Database Visualizer & SQL Workspace
+Description=QueryCanvas & SQL Workspace
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/dvws/app
-ExecStart=/opt/dvws/venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8000
+WorkingDirectory=/opt/querycanvas/app
+ExecStart=/opt/querycanvas/venv/bin/uvicorn backend.main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=5
 Environment=PORT=8000

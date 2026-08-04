@@ -1,1 +1,1 @@
-"""Database Visualizer & SQL Workspace backend package."""
+"""QueryCanvas backend package."""

@@ -22,7 +22,7 @@ export function TopBar() {
       <div className="flex items-center gap-2">
         <Database className="h-5 w-5 text-primary" />
         <span className="hidden text-sm font-semibold tracking-tight sm:inline">
-          Database Visualizer
+          QueryCanvas
         </span>
       </div>
 

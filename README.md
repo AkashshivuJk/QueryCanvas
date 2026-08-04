@@ -1,4 +1,4 @@
-# Database Visualizer & SQL Workspace
+# QueryCanvas
 
 A modern, in-browser database IDE for writing and executing SQL, inspecting database structure, visualizing table relationships, and exploring data — all from a single three-panel workspace.
 

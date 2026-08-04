@@ -37,7 +37,7 @@ export function useAppInit(): void {
       creatingRef.current = true;
       (async () => {
         try {
- const path = "/tmp/dvws_default.db";
+ const path = "/tmp/querycanvas_default.db";
           await api.createDatabase({ action: "create", path, name: "SampleDB" });
           // Seed sample schema + data.
           const seedStatements = [
@@ -58,7 +58,7 @@ export function useAppInit(): void {
         } catch {
           // Database may already exist — try to open it instead.
           try {
-            await api.createDatabase({ action: "open", path: "/tmp/dvws_default.db", name: "SampleDB" });
+            await api.createDatabase({ action: "open", path: "/tmp/querycanvas_default.db", name: "SampleDB" });
             await refetch();
           } catch {
             // Give up silently — user can create via Import dialog.

@@ -7,7 +7,7 @@
 ## Step 1: Create the VM
 
 1. Go to **Oracle Cloud Console** → **Compute** → **Instances** → **Create Instance**
-2. Name it `dvws-server`
+2. Name it `querycanvas-server`
 3. Image: **Canonical Ubuntu 22.04** (click "Change image" → Ubuntu)
 4. Shape: **VM.Standard.A1.Flex** (ARM Ampere — Always Free eligible)
    - Set to **4 OCPU** and **24 GB RAM** (free tier max)
@@ -43,18 +43,18 @@ sudo ufw --force enable
 From your Mac:
 ```bash
 # Option A: SCP the entire project
-scp -r -i <your-key> /Users/akash/Desktop/LIVUP/project1 ubuntu@<VM-PUBLIC-IP>:/home/ubuntu/dvws
+scp -r -i <your-key> /Users/akash/Desktop/LIVUP/project1 ubuntu@<VM-PUBLIC-IP>:/home/ubuntu/querycanvas
 
 # Option B: Push to GitHub first, then clone on the VM (recommended)
 # On your Mac:
 cd /Users/akash/Desktop/LIVUP/project1
-git init && git add -A && git commit -m "Database Visualizer & SQL Workspace"
+git init && git add -A && git commit -m "QueryCanvas"
 # Create a repo on GitHub, then:
-git remote add origin git@github.com:<your-username>/db-visualizer.git
+git remote add origin git@github.com:<your-username>/querycanvas.git
 git push -u origin main
 
 # On the VM:
-git clone https://github.com/<your-username>/db-visualizer.git ~/dvws
+git clone https://github.com/<your-username>/querycanvas.git ~/querycanvas
 ```
 
 ## Step 4: Run the Deploy Script
@@ -64,12 +64,12 @@ SSH into the VM and run:
 ssh -i <your-key> ubuntu@<VM-PUBLIC-IP>
 
 # Run the deployment script
-cd ~/dvws
+cd ~/querycanvas
 chmod +x deploy.sh
-# The script expects the project at /opt/dvws/app — adjust it:
-sudo mkdir -p /opt/dvws/app
-sudo cp -r ~/dvws/* /opt/dvws/app/
-cd /opt/dvws/app
+# The script expects the project at /opt/querycanvas/app — adjust it:
+sudo mkdir -p /opt/querycanvas/app
+sudo cp -r ~/querycanvas/* /opt/querycanvas/app/
+cd /opt/querycanvas/app
 sudo bash deploy.sh
 ```
 
@@ -85,13 +85,13 @@ The script will:
 
 ```bash
 # Check the service is running
-sudo systemctl status dvws
+sudo systemctl status querycanvas
 
 # Test locally on the VM
 curl http://localhost:8000/
 
 # View live logs
-sudo journalctl -u dvws -f
+sudo journalctl -u querycanvas -f
 ```
 
 From your browser, visit:
@@ -108,26 +108,26 @@ git add -A && git commit -m "update" && git push
 
 On the VM:
 ```bash
-cd /opt/dvws/app
+cd /opt/querycanvas/app
 git pull
 cd frontend && npm run build && cd ..
-sudo systemctl restart dvws
+sudo systemctl restart querycanvas
 ```
 
 ## Useful Commands
 
 ```bash
-sudo systemctl start dvws       # start
-sudo systemctl stop dvws         # stop
-sudo systemctl restart dvws      # restart
-sudo systemctl status dvws        # status
-sudo journalctl -u dvws -f        # live logs
-sudo journalctl -u dvws --since "1 hour ago"  # recent logs
+sudo systemctl start querycanvas       # start
+sudo systemctl stop querycanvas         # stop
+sudo systemctl restart querycanvas      # restart
+sudo systemctl status querycanvas        # status
+sudo journalctl -u querycanvas -f        # live logs
+sudo journalctl -u querycanvas --since "1 hour ago"  # recent logs
 ```
 
 ## Notes
 - The app runs as a systemd service → **auto-starts on reboot** (permanent)
-- SQLite files persist at whatever path you create them at (e.g. `/opt/dvws/data/mydb.db`)
+- SQLite files persist at whatever path you create them at (e.g. `/opt/querycanvas/data/mydb.db`)
 - The Always Free tier is genuinely free — Oracle won't charge you as long as you stay within the limits (4 OCPU / 24GB RAM ARM)
 - If the VM stops, Oracle may reclaim it after 7 days of inactivity. To prevent this, set up a cron job that pings the server:
   ```bash

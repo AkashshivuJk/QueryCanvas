@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the system architecture of the **Database Visualizer & SQL Workspace**. It covers the overall topology, the layered frontend and backend designs, the undo/redo model, query execution flow, schema introspection, data flow, and how to extend the backend to additional database engines.
+This document describes the system architecture of the **QueryCanvas**. It covers the overall topology, the layered frontend and backend designs, the undo/redo model, query execution flow, schema introspection, data flow, and how to extend the backend to additional database engines.
 
 ## System Overview
 
@@ -48,7 +48,7 @@ The frontend is organized into four cooperating layers: presentation components,
 
 - **`useDatabaseStore`** — the active connection and its metadata: `activeDbPath`, `databases`, `metadata`, with `setDatabases`, `setActive`, `setMetadata`. `setActive` clears metadata so it is re-fetched for the newly selected database.
 - **`useQueryStore`** — the current editor and result state: `currentSql`, `results`, `isExecuting`, `lastError`, and their setters.
-- **`useSettingsStore`** — persisted user preferences (`theme`, `gridSize`, `connectorStyle`, `animationSpeed`, `autosave`, `showMinimap`, `showColumns`) with a setter per field; persisted to `localStorage` under `dvws-settings`.
+- **`useSettingsStore`** — persisted user preferences (`theme`, `gridSize`, `connectorStyle`, `animationSpeed`, `autosave`, `showMinimap`, `showColumns`) with a setter per field; persisted to `localStorage` under `querycanvas-settings`.
 - **`useUIStore`** — transient UI state: `selectedTableName`, `rightTab` (`visualization` | `graph`), `explorerVisible`, dialog flags (`globalSearchOpen`, `settingsOpen`, `importOpen`, `exportOpen`), and `highlightTable`.
 
 ### Data fetching (TanStack Query)

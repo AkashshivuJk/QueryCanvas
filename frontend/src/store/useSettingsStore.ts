@@ -43,6 +43,6 @@ export const useSettingsStore = create<SettingsState>()(
       setShowMinimap: (showMinimap) => set({ showMinimap }),
       setShowColumns: (showColumns) => set({ showColumns }),
     }),
-    { name: "dvws-settings" },
+    { name: "querycanvas-settings" },
   ),
 );

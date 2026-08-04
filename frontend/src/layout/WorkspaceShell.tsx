@@ -18,7 +18,7 @@ export function WorkspaceShell() {
     <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
       <TopBar />
       <div className="min-h-0 flex-1">
-        <PanelGroup direction="horizontal" autoSaveId="dvws-main">
+        <PanelGroup direction="horizontal" autoSaveId="querycanvas-main">
           <Panel defaultSize={25} minSize={15} className="min-w-0">
             <div className="h-full overflow-hidden border-r border-border">
               <SqlWorkspaceSlot />

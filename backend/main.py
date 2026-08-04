@@ -1,4 +1,4 @@
-"""FastAPI application entry point for the Database Visualizer & SQL Workspace."""
+"""FastAPI application entry point for the QueryCanvas backend."""
 from __future__ import annotations
 
 import os
@@ -16,9 +16,9 @@ from backend.routers import databases, export, history, query, recommendations
 def create_app() -> FastAPI:
     """Build and configure the FastAPI application."""
     app = FastAPI(
-        title="Database Visualizer & SQL Workspace API",
+        title="QueryCanvas API",
         version="1.0.0",
-        description="Backend API for the Database Visualizer & SQL Workspace app.",
+        description="Backend API for the QueryCanvas app.",
     )
 
     # CORS: allow all origins for local development.
@@ -63,7 +63,7 @@ def create_app() -> FastAPI:
         @app.get("/")
         async def root() -> dict:
             return {
-                "name": "Database Visualizer & SQL Workspace API",
+                "name": "QueryCanvas API",
                 "version": "1.0.0",
                 "docs": "/docs",
                 "status": "ok",
